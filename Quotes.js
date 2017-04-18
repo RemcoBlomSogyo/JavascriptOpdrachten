@@ -27,16 +27,20 @@ function getQuoteFromArray(indexForArray) {
 }
 
 function formatSentence(quote) {
-    var sentence = quote[1];
-    sentence = addDotIfNecessary(sentence);
-    return capitalizeString(sentence);
+    quote = addDotIfNecessary(quote);
+    quote = capitalizeString(quote);
+    return addQuotationMarks(quote);
 }
 
 function addDotIfNecessary(sentence) {
-    if (getLastCharOfString(sentence) === "!") {
+    if (getLastCharOfString(sentence) !== "!") {
         sentence = sentence + ".";
     }
     return sentence;
+}
+
+function addQuotationMarks(sentence) {
+    return "\"" + sentence + "\"";
 }
 
 function capitalizeString(string) {
@@ -50,19 +54,17 @@ function getLastCharOfString(string) {
 
 function formatPerson(personString) {
     var newPersonString = personString.toString();
-    if (newPersonString.indexOf(" ") > 0) {
-        var nameParts = newPersonString.split(" ");
-        for (i = 0; i < nameParts.length; i++) {
-            nameParts[i] = capitalizeString(nameParts[i]);
-        }
-        newPersonString = stringBuilder(nameParts);
+    var nameParts = newPersonString.split(" ");
+    for (var i = 0; i < nameParts.length; i++) {
+        nameParts[i] = capitalizeString(nameParts[i]);
     }
+    newPersonString = stringBuilder(nameParts);
     return newPersonString;
 }
 
 function stringBuilder(stringArray) {
     var newString = "";
-    for (i = 0; i < stringArray.length; i++) {
+    for (var i = 0; i < stringArray.length; i++) {
         newString = newString + stringArray[i];
         if (i !== stringArray.length - 1) {
             newString = newString + " ";
@@ -73,7 +75,6 @@ function stringBuilder(stringArray) {
 
 var dayOfYear = calculateDayOfYear();
 var quote = getQuoteFromArray(calculateIndex(dayOfYear));
-console.log(quote);
 var formattedPerson = formatPerson(quote[0]);
 var formattedSentence = formatSentence(quote[1]);
-console.log(formattedSentence);
+console.log(formattedSentence + " -- " + formattedPerson);
