@@ -29,13 +29,6 @@ function nimGame() {
             rl.question("Hoeveel lucifers wil je nemen?", this.checkForValidHand.bind(this));
         },
 
-        question: function (text, functie) {
-            console.log(text);
-            //input vragen
-            var input = "test";
-            functie(input);
-        },
-
         checkForValidHand: function(hand) {
             if (this.matchesIsBiggerThanHand(hand) && this.handIsBetweenOneAndFour(hand)) {
                 this.takeMatches(hand);
